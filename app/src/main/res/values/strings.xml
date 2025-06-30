@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">FoodApp</string>
+    <string name="skip">Skip</string>
+    <string name="welcome">Welcome to</string>
+    <string name="food_hub">Food Hub</string>
+    <string name="your_favourite">Your favourite foods delivered fast at your door.\n</string>
+    <string name="sign_with">Sign in with</string>
+    <string name="start_with"><![CDATA[Start with email & passord]]></string>
+    <string name="have_account">Already have an account?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="login">Login</string>
+    <string name="facebook">FACEBOOK</string>
+    <string name="google">GOOGLE</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="dont_have_account">Don\'t have an account ?</string>
+</resources>
