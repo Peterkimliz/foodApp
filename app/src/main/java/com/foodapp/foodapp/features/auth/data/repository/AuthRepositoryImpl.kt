@@ -18,7 +18,6 @@ import okio.IOException
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(private val api: AuthApi) : AuthRepository {
-
     override suspend fun loginUser(email: String, password: String): Flow<Resource<User>> {
         return flow {
             emit(Resource.Loading(true))
@@ -98,10 +97,8 @@ class AuthRepositoryImpl @Inject constructor(private val api: AuthApi) : AuthRep
             if (response.isSuccessful) {
                 emit(Resource.Success(data = response.body()!!.toUser()))
             } else {
-                Log.d("DResponse", response.errorBody().toString())
-                val apiError:ApiError= convertError(errorBody = response.errorBody().toString())
-
-                emit(Resource.Error(message = apiError.message))
+                val apiError: ApiError = convertError(response.errorBody()?.string())
+                emit(Resource.Error(message =apiError.message))
             }
 
         }

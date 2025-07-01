@@ -6,11 +6,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.foodapp.foodapp.core.navigation.AppNavigationRoutes
 import com.foodapp.foodapp.core.utils.Resource
+import com.foodapp.foodapp.core.utils.UiEvents
 import com.foodapp.foodapp.features.auth.domain.usecases.AuthUseCases
 import com.foodapp.foodapp.features.auth.presentation.screens.signup.SignUpEvents
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -33,6 +37,10 @@ class SignUpViewModel @Inject constructor(
         private set
     var loading by mutableStateOf(false)
         private set
+
+    private val _uiState=Channel<UiEvents>()
+    val uiEvents=_uiState.receiveAsFlow()
+
 
     fun onEvent(event: SignUpEvents) {
         when (event) {
@@ -77,13 +85,14 @@ class SignUpViewModel @Inject constructor(
                 when(resource){
                     is Resource.Error -> {
                         loading=false
-                        Log.d("Error",resource.message)
+                      _uiState.send(UiEvents.ShowSnackBar(message = resource.message))
                     }
                     is Resource.Loading -> {
                         loading=resource.loading
                     }
                     is Resource.Success -> {
                         Log.d("Error",resource.data.toString())
+                        _uiState.send(UiEvents.Navigate(route = AppNavigationRoutes.Home.route))
                     }
                 }
             }

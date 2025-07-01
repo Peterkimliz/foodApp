@@ -33,6 +33,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,6 +46,7 @@ import com.foodapp.foodapp.R
 import com.foodapp.foodapp.core.navigation.AppNavigationRoutes
 import com.foodapp.foodapp.core.utils.UiEvents
 import com.foodapp.foodapp.core.widgets.CustomButton
+import com.foodapp.foodapp.core.widgets.FoodHubPasswordTextField
 import com.foodapp.foodapp.core.widgets.FoodHubTextField
 import com.foodapp.foodapp.features.auth.presentation.screens.components.SocialLoginCard
 import com.foodapp.foodapp.features.auth.presentation.screens.login.LoginEvents
@@ -123,7 +125,7 @@ fun LoginScreen(
                 )
                 Spacer(Modifier.height(30.dp))
                 FoodHubTextField(
-
+                    validate = viewModel.emailValidated,
                     value = viewModel.email,
                     onChange = {
                         viewModel.onEvent(
@@ -134,17 +136,20 @@ fun LoginScreen(
                     labelText = "Email"
                 )
                 Spacer(Modifier.height(30.dp))
-                FoodHubTextField(
+                FoodHubPasswordTextField(
                     keyboardOptions = KeyboardOptions(
-                        imeAction = ImeAction.Done
+                        imeAction = ImeAction.Done,
+                        keyboardType = KeyboardType.Password
                     ),
+                    validate = viewModel.passwordValidated,
                     value = viewModel.password,
+
                     onChange = {
                         viewModel.onEvent(LoginEvents.PasswordInput(it))
                     },
                     placeHolderText = "Password",
                     labelText = "Password",
-
+                    showPassword = viewModel.obscurePassword
                     )
                 Spacer(Modifier.height(10.dp))
 

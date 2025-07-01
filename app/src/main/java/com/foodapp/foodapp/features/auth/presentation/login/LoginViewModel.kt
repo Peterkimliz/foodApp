@@ -30,6 +30,15 @@ class LoginViewModel @Inject constructor(private  val authUseCases: AuthUseCases
     var loading by mutableStateOf(false)
         private set
 
+    var emailValidated by mutableStateOf(false)
+        private set
+
+    var passwordValidated by mutableStateOf(false)
+        private set
+
+
+
+
     private val _uiState = Channel<UiEvents>()
     val uiState = _uiState.receiveAsFlow()
 
@@ -50,10 +59,12 @@ class LoginViewModel @Inject constructor(private  val authUseCases: AuthUseCases
 
             is LoginEvents.EmailInput -> {
                 email = event.email
+                emailValidated = email.trim().isEmpty()
             }
 
             is LoginEvents.PasswordInput -> {
                 password = event.password
+                passwordValidated = password.trim().isEmpty()
             }
 
             is LoginEvents.Navigate -> {
@@ -67,12 +78,11 @@ class LoginViewModel @Inject constructor(private  val authUseCases: AuthUseCases
     }
 
     private fun loginWithEmailAndPassword() {
+        emailValidated = email.trim().isEmpty()
+        passwordValidated = password.trim().isEmpty()
 
         viewModelScope.launch {
-            if (email.trim().isEmpty()) {
-                return@launch
-            }
-            if (password.trim().isEmpty()) {
+            if (emailValidated || passwordValidated) {
                 return@launch
             }
 

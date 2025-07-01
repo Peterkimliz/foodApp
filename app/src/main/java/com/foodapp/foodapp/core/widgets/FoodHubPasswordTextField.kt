@@ -22,35 +22,40 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun FoodHubTextField(
-    validate: Boolean = false,
-
+fun FoodHubPasswordTextField(
+    showPassword: Boolean = false,
+    validate:Boolean=false,
     value: String,
     modifier: Modifier = Modifier,
     onChange: (String) -> Unit,
     placeHolderText: String,
     labelText: String,
+    trailingIcon: @Composable (() -> Unit)? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions(
         keyboardType = KeyboardType.Text,
-        imeAction = ImeAction.Next
-    ),
+        imeAction = ImeAction.Next),
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
 
         OutlinedTextField(
             keyboardOptions = keyboardOptions,
+            trailingIcon = trailingIcon,
             placeholder = {
                 Text(text = placeHolderText)
             },
             label = {
                 Text(text = labelText)
             },
-
+            visualTransformation = if (showPassword) {
+                VisualTransformation.None
+            } else {
+                PasswordVisualTransformation()
+            },
             modifier = modifier.fillMaxWidth(),
             value = value,
             onValueChange = onChange,
             supportingText = {
-                if (validate) {
+                if(validate){
                     Text(text = "$labelText is required")
                 }
 
