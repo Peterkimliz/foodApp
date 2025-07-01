@@ -19,6 +19,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -33,6 +34,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.foodapp.foodapp.R
@@ -41,7 +43,26 @@ import com.foodapp.foodapp.features.auth.presentation.screens.components.SocialL
 
 
 @Composable
-fun OnBoardScreen(navHostController: NavHostController) {
+fun OnBoardScreen(
+    navHostController: NavHostController,
+    viewModel: OnBoardViewModel = hiltViewModel()
+) {
+
+
+    LaunchedEffect(key1 = true) {
+        viewModel.channel.collect { event ->
+            if (event.token.trim().isNotEmpty()) {
+
+                navHostController.navigate(AppNavigationRoutes.Home.route)
+
+            }
+        }
+
+
+    }
+
+
+
     Box(modifier = Modifier
         .fillMaxSize()
         .background(color = Color.Black)) {

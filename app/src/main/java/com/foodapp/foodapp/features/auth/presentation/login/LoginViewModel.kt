@@ -21,6 +21,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(private  val authUseCases: AuthUseCases) : ViewModel() {
+    var errorMessage by mutableStateOf("")
+        private set
+
     var email by mutableStateOf("")
         private set
     var password by mutableStateOf("")
@@ -36,7 +39,8 @@ class LoginViewModel @Inject constructor(private  val authUseCases: AuthUseCases
     var passwordValidated by mutableStateOf(false)
         private set
 
-
+    var showErrorDialog by mutableStateOf(false)
+        private set
 
 
     private val _uiState = Channel<UiEvents>()
@@ -73,6 +77,10 @@ class LoginViewModel @Inject constructor(private  val authUseCases: AuthUseCases
                 }
 
             }
+
+            LoginEvents.HideErrorDialog -> {
+                showErrorDialog = false
+            }
         }
 
     }
@@ -93,13 +101,14 @@ class LoginViewModel @Inject constructor(private  val authUseCases: AuthUseCases
                 when(resource){
                     is Resource.Error -> {
                         loading=false
-
-                        _uiState.send(UiEvents.ShowSnackBar(message = resource.message))
+                        showErrorDialog = true
+                        errorMessage = resource.message
                     }
                     is Resource.Loading -> {
                         loading=resource.loading
                     }
                     is Resource.Success -> {
+                        saveUserToLocalStorage(user = resource.data)
                      _uiState.send(UiEvents.Navigate(route = AppNavigationRoutes.Home.route))
                     }
                 }
@@ -107,6 +116,11 @@ class LoginViewModel @Inject constructor(private  val authUseCases: AuthUseCases
             }
 
         }
+    }
+
+    private suspend fun saveUserToLocalStorage(user: User) {
+        authUseCases.saveUserToLocalStorage(user = user)
+
     }
 
 

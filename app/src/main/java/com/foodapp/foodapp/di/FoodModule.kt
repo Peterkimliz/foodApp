@@ -1,9 +1,6 @@
 package com.foodapp.foodapp.di
 
-import com.foodapp.foodapp.core.widgets.utils.Constants.BASE_URL
-import com.foodapp.foodapp.features.auth.domain.usecases.AuthUseCases
-import com.foodapp.foodapp.features.auth.domain.usecases.LoginWithEmailAndPassword
-import com.foodapp.foodapp.features.auth.domain.usecases.SignUpWithEmailAndPassword
+import com.foodapp.foodapp.core.utils.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

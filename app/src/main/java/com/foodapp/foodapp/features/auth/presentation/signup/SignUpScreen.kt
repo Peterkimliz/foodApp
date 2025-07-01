@@ -40,10 +40,10 @@ import com.foodapp.foodapp.R
 import com.foodapp.foodapp.core.navigation.AppNavigationRoutes
 import com.foodapp.foodapp.core.utils.UiEvents
 import com.foodapp.foodapp.core.widgets.CustomButton
+import com.foodapp.foodapp.core.widgets.ErrorAlertDialog
 import com.foodapp.foodapp.core.widgets.FoodHubPasswordTextField
 import com.foodapp.foodapp.core.widgets.FoodHubTextField
 import com.foodapp.foodapp.features.auth.presentation.screens.components.SocialLoginCard
-import com.foodapp.foodapp.features.auth.presentation.screens.signup.SignUpEvents
 
 @Composable
 
@@ -54,8 +54,6 @@ fun SignUpScreen(
     val snackBarHostState: SnackbarHostState = remember {
         SnackbarHostState()
     }
-
-
 
     LaunchedEffect(key1 = true) {
         viewModel.uiEvents.collect { event ->
@@ -80,6 +78,16 @@ fun SignUpScreen(
             )
         }
     ) { innerPadding ->
+
+        if(viewModel.showErrorDialog){
+            ErrorAlertDialog(
+                title ="Request Failed" ,
+                message =viewModel.errorMessage,
+                onDismiss = {
+                    viewModel.onEvent(SignUpEvents.HideErrorDialog)
+                }
+            )
+        }
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -106,6 +114,7 @@ fun SignUpScreen(
                 )
                 Spacer(Modifier.height(30.dp))
                 FoodHubTextField(
+                    validate = viewModel.fullNameNotValid,
                     value = viewModel.fullName,
                     onChange = {
                         viewModel.onEvent(SignUpEvents.NameInput(it))
@@ -115,6 +124,7 @@ fun SignUpScreen(
                 )
                 Spacer(Modifier.height(10.dp))
                 FoodHubTextField(
+                    validate = viewModel.emailNotValid,
                     value = viewModel.email,
                     onChange = {
                         viewModel.onEvent(SignUpEvents.EmailInput(it))
@@ -124,6 +134,7 @@ fun SignUpScreen(
                 )
                 Spacer(Modifier.height(10.dp))
                 FoodHubPasswordTextField(
+                    validate = viewModel.passwordNotValid,
                     value = viewModel.password,
                     onChange = {
                         viewModel.onEvent(SignUpEvents.PasswordInput(it))

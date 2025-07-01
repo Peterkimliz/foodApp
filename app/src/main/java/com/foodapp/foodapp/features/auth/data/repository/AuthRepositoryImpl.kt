@@ -4,6 +4,7 @@ import android.util.Log
 import coil.network.HttpException
 import com.foodapp.foodapp.core.utils.ApiErrorConvertor.convertError
 import com.foodapp.foodapp.core.utils.Resource
+import com.foodapp.foodapp.features.auth.data.datasource.local.UserSession
 import com.foodapp.foodapp.features.auth.data.datasource.network.AuthApi
 import com.foodapp.foodapp.features.auth.data.dtos.ApiError
 import com.foodapp.foodapp.features.auth.data.dtos.LoginRequest
@@ -17,7 +18,10 @@ import kotlinx.coroutines.flow.flow
 import okio.IOException
 import javax.inject.Inject
 
-class AuthRepositoryImpl @Inject constructor(private val api: AuthApi) : AuthRepository {
+class AuthRepositoryImpl @Inject constructor(
+    private val api: AuthApi,
+    val userSession: UserSession
+) : AuthRepository {
     override suspend fun loginUser(email: String, password: String): Flow<Resource<User>> {
         return flow {
             emit(Resource.Loading(true))
@@ -104,4 +108,32 @@ class AuthRepositoryImpl @Inject constructor(private val api: AuthApi) : AuthRep
         }
 
     }
+
+    override suspend fun signOut() {
+
+
+    }
+
+    override suspend fun saveUserToLocalStorage(user: User) {
+        userSession.saveUserToSharedPreference(
+            fullName = user.fullName,
+            email = user.email,
+            token = user.token,
+            id = user.id
+        )
+    }
+
+    override suspend fun getUserFromLocalStorage(): User {
+        val token = userSession.getToken()
+        val userDto = userSession.getUserDetails()
+        return User(
+            token = token,
+            id = userDto.id,
+            email = userDto.email,
+            fullName = userDto.fullName
+        )
+    }
+
+
+
 }

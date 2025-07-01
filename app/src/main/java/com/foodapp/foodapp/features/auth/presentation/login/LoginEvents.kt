@@ -7,5 +7,6 @@ sealed class LoginEvents {
  data object LoginWithEmail: LoginEvents()
  data object SignUpWithGoogle: LoginEvents()
  data object ToggleLoginPassword: LoginEvents()
+    data object  HideErrorDialog: LoginEvents()
 
 }

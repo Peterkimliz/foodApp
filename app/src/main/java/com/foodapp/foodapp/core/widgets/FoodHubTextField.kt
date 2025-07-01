@@ -24,7 +24,6 @@ import androidx.compose.ui.tooling.preview.Preview
 @Composable
 fun FoodHubTextField(
     validate: Boolean = false,
-
     value: String,
     modifier: Modifier = Modifier,
     onChange: (String) -> Unit,

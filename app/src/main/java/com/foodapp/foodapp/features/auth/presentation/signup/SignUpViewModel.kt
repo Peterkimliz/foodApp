@@ -9,8 +9,8 @@ import androidx.lifecycle.viewModelScope
 import com.foodapp.foodapp.core.navigation.AppNavigationRoutes
 import com.foodapp.foodapp.core.utils.Resource
 import com.foodapp.foodapp.core.utils.UiEvents
+import com.foodapp.foodapp.features.auth.domain.models.User
 import com.foodapp.foodapp.features.auth.domain.usecases.AuthUseCases
-import com.foodapp.foodapp.features.auth.presentation.screens.signup.SignUpEvents
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collectLatest
@@ -32,10 +32,24 @@ class SignUpViewModel @Inject constructor(
     var password by mutableStateOf("")
         private set
 
-
     var obscurePassword by mutableStateOf(false)
         private set
+
+
     var loading by mutableStateOf(false)
+        private set
+
+    var showErrorDialog by mutableStateOf(false)
+        private set
+    var errorMessage by mutableStateOf("")
+        private set
+
+    var emailNotValid by mutableStateOf(false)
+        private set
+    var passwordNotValid by mutableStateOf(false)
+        private set
+
+    var fullNameNotValid by mutableStateOf(false)
         private set
 
     private val _uiState=Channel<UiEvents>()
@@ -46,12 +60,15 @@ class SignUpViewModel @Inject constructor(
         when (event) {
             is SignUpEvents.EmailInput -> {
                 email=event.email
+                emailNotValid = email.trim().isEmpty()
             }
             is SignUpEvents.NameInput -> {
                 fullName=event.name
+                fullNameNotValid = fullName.trim().isEmpty()
             }
             is SignUpEvents.PasswordInput -> {
                 password=event.password
+                passwordNotValid = password.trim().isEmpty()
             }
             SignUpEvents.SignUpWithEmail -> {
                 signUpWithEmail()
@@ -61,20 +78,23 @@ class SignUpViewModel @Inject constructor(
                 obscurePassword=!obscurePassword
             }
 
-            else -> {}
+            SignUpEvents.HideErrorDialog -> {
+                showErrorDialog = false
+            }
         }
     }
 
+
+
+
     private fun signUpWithEmail() {
+        emailNotValid = email.trim().isEmpty()
+        passwordNotValid = password.trim().isEmpty()
+        fullNameNotValid = fullName.trim().isEmpty()
+
 
         viewModelScope.launch {
-            if (fullName.trim().isEmpty()){
-                return@launch
-            }
-            if (email.trim().isEmpty()){
-                return@launch
-            }
-            if (password.trim().isEmpty()){
+            if (emailNotValid || passwordNotValid || fullNameNotValid) {
                 return@launch
             }
 
@@ -85,13 +105,14 @@ class SignUpViewModel @Inject constructor(
                 when(resource){
                     is Resource.Error -> {
                         loading=false
-                      _uiState.send(UiEvents.ShowSnackBar(message = resource.message))
+                        showErrorDialog = true
+                        errorMessage = resource.message
                     }
                     is Resource.Loading -> {
                         loading=resource.loading
                     }
                     is Resource.Success -> {
-                        Log.d("Error",resource.data.toString())
+                        saveUserToLocalStorage(user = resource.data)
                         _uiState.send(UiEvents.Navigate(route = AppNavigationRoutes.Home.route))
                     }
                 }
@@ -99,6 +120,10 @@ class SignUpViewModel @Inject constructor(
 
         }
 
+    }
+
+    private suspend fun saveUserToLocalStorage(user: User) {
+        authUseCases.saveUserToLocalStorage(user = user)
     }
 
 

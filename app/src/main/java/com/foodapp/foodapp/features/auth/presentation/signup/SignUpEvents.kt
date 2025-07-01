@@ -1,4 +1,4 @@
-package com.foodapp.foodapp.features.auth.presentation.screens.signup
+package com.foodapp.foodapp.features.auth.presentation.signup
 
 sealed class SignUpEvents {
     data class EmailInput(val email:String): SignUpEvents()
@@ -7,4 +7,5 @@ sealed class SignUpEvents {
     data object SignUpWithEmail: SignUpEvents()
     data object SignUpWithGoogle: SignUpEvents()
     data object ToggleLoginPassword: SignUpEvents()
+    data object HideErrorDialog : SignUpEvents()
 }
