@@ -1,7 +1,7 @@
 package com.foodapp.foodapp.core.utils
 
 import android.util.Log
-import com.foodapp.foodapp.features.auth.data.dtos.ApiError
+import com.foodapp.foodapp.data.dtos.ApiError
 import com.google.gson.Gson
 
 object ApiErrorConvertor {
