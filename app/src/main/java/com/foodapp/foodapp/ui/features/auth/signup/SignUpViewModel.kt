@@ -1,4 +1,4 @@
-package com.foodapp.foodapp.features.auth.signup
+package com.foodapp.foodapp.ui.features.auth.signup
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    val authUseCases: AuthUseCases
+    private val authUseCases: AuthUseCases
 ) : ViewModel() {
 
     var email by mutableStateOf("")

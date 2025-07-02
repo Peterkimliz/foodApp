@@ -4,10 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.foodapp.foodapp.features.auth.login.LoginScreen
-import com.foodapp.foodapp.features.auth.onboard.OnBoardScreen
-import com.foodapp.foodapp.features.auth.signup.SignUpScreen
-import com.foodapp.foodapp.features.home.Home
+import com.foodapp.foodapp.ui.features.auth.login.LoginScreen
+import com.foodapp.foodapp.ui.features.auth.onboard.OnBoardScreen
+import com.foodapp.foodapp.ui.features.auth.signup.SignUpScreen
+import com.foodapp.foodapp.ui.features.home.Home
 
 @Composable
 fun AppNavigation() {

@@ -1,4 +1,4 @@
-package com.foodapp.foodapp.features.auth.onboard
+package com.foodapp.foodapp.ui.features.auth.onboard
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -39,7 +39,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.foodapp.foodapp.R
 import com.foodapp.foodapp.core.navigation.AppNavigationRoutes
-import com.foodapp.foodapp.features.auth.components.SocialLoginCard
+import com.foodapp.foodapp.ui.features.auth.components.SocialLoginCard
 
 
 @Composable

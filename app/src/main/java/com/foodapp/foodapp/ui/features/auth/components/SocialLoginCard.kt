@@ -1,4 +1,4 @@
-package com.foodapp.foodapp.features.auth.components
+package com.foodapp.foodapp.ui.features.auth.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

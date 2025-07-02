@@ -1,4 +1,4 @@
-package com.foodapp.foodapp.features.auth.onboard
+package com.foodapp.foodapp.ui.features.auth.onboard
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

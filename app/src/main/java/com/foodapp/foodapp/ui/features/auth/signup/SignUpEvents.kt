@@ -1,4 +1,4 @@
-package com.foodapp.foodapp.features.auth.signup
+package com.foodapp.foodapp.ui.features.auth.signup
 
 sealed class SignUpEvents {
     data class EmailInput(val email:String): SignUpEvents()

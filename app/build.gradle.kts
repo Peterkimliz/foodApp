@@ -85,4 +85,7 @@ dependencies {
     implementation ("androidx.paging:paging-runtime:$pagingVersion")
     implementation ("androidx.paging:paging-compose:3.2.0-rc01")
 
+    implementation("androidx.compose.material:material-icons-core:1.6.0") // Core icons
+    implementation("androidx.compose.material:material-icons-extended:1.6.0")
+
 }

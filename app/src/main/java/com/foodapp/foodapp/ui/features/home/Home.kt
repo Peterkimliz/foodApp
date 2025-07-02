@@ -1,4 +1,4 @@
-package com.foodapp.foodapp.features.home
+package com.foodapp.foodapp.ui.features.home
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
