@@ -14,4 +14,8 @@
     <string name="sign_up">Sign Up</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="dont_have_account">Don\'t have an account ?</string>
+    <string name="what_would_you_like_to_order">What would you like to order</string>
+    <string name="categories">Categories</string>
+    <string name="featured_restaurants">Featured Restaurants</string>
+    <string name="view_all">View All > </string>
 </resources>

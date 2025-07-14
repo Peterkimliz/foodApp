@@ -5,6 +5,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
     id ("kotlin-parcelize")
+    id ("org.jetbrains.kotlin.plugin.serialization")
 }
 
 android {
@@ -72,6 +73,9 @@ dependencies {
     //Navigation library
     val navVersion = "2.8.9"
     implementation("androidx.navigation:navigation-compose:$navVersion")
+    //serialization dependency
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.1")
+
 
     //Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
@@ -85,6 +89,7 @@ dependencies {
     implementation ("androidx.paging:paging-runtime:$pagingVersion")
     implementation ("androidx.paging:paging-compose:3.2.0-rc01")
 
+    // icons dependencies
     implementation("androidx.compose.material:material-icons-core:1.6.0") // Core icons
     implementation("androidx.compose.material:material-icons-extended:1.6.0")
 

@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.foodapp.foodapp.core.navigation.AppNavigation
+import com.foodapp.foodapp.navigation.AppNavigation
 import com.foodapp.foodapp.ui.theme.FoodAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
