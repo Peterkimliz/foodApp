@@ -46,10 +46,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.foodapp.foodapp.R
 import com.foodapp.foodapp.core.presentation.utils.UiEvents
-import com.foodapp.foodapp.core.presentation.components.CustomButton
-import com.foodapp.foodapp.core.presentation.components.ErrorAlertDialog
-import com.foodapp.foodapp.core.presentation.components.FoodHubPasswordTextField
-import com.foodapp.foodapp.core.presentation.components.FoodHubTextField
+import com.foodapp.foodapp.core.presentation.screens.components.CustomButton
+import com.foodapp.foodapp.core.presentation.screens.components.ErrorAlertDialog
+import com.foodapp.foodapp.core.presentation.screens.components.FoodHubPasswordTextField
+import com.foodapp.foodapp.core.presentation.screens.components.FoodHubTextField
 import com.foodapp.foodapp.features.auth.presentation.components.SocialLoginCard
 import com.foodapp.foodapp.navigation.Login
 
@@ -206,7 +206,9 @@ fun SignUpScreen(
                         Spacer(Modifier.width(5.dp))
                         Text(
                             modifier = Modifier.clickable {
-                                navHostController.navigate(Login)
+                                navHostController.navigate(Login){
+                                    launchSingleTop = true
+                                }
                             },
                             text = stringResource(R.string.login),
                             style = MaterialTheme.typography.labelMedium,

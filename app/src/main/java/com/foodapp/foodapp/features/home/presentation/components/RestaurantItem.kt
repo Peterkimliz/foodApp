@@ -1,5 +1,7 @@
 package com.foodapp.foodapp.features.home.presentation.components
 
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -34,12 +36,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.foodapp.foodapp.R
-import com.foodapp.foodapp.features.home.domain.models.Restaurant
+import com.foodapp.foodapp.features.restaurant.domain.models.Restaurant
 import java.util.Locale
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 
-fun RestaurantItem(item: Restaurant, onItemClick: (restaurant: Restaurant) -> Unit) {
+fun RestaurantItem(
+    item: Restaurant,
+    onItemClick: (restaurant: Restaurant) -> Unit,
+    animatedContentScope: SharedTransitionScope
+) {
     Card(
         elevation = CardDefaults.cardElevation(
             3.dp

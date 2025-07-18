@@ -41,6 +41,7 @@ import com.foodapp.foodapp.R
 import com.foodapp.foodapp.features.auth.presentation.components.SocialLoginCard
 import com.foodapp.foodapp.navigation.Home
 import com.foodapp.foodapp.navigation.Login
+import com.foodapp.foodapp.navigation.OnBoard
 import com.foodapp.foodapp.navigation.SignUp
 
 
@@ -55,7 +56,11 @@ fun OnBoardScreen(
         viewModel.channel.collect { event ->
             if (event.token.trim().isNotEmpty()) {
 
-                navHostController.navigate(Home)
+                navHostController.navigate(Home){
+                    popUpTo<OnBoard> {
+                        inclusive=true
+                    }
+                }
 
             }
         }

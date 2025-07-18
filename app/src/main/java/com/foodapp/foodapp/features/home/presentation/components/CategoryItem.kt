@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.foodapp.foodapp.R
-import com.foodapp.foodapp.features.home.domain.models.Category
+import com.foodapp.foodapp.core.domain.models.Category
 import java.util.Locale
 
 @Composable

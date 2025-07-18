@@ -1,5 +1,7 @@
 package com.foodapp.foodapp.features.home.presentation
 
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -26,15 +28,20 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.foodapp.foodapp.R
+import com.foodapp.foodapp.core.presentation.viewmodels.CategoryViewModel
 import com.foodapp.foodapp.features.home.presentation.components.CategoryItem
 import com.foodapp.foodapp.features.home.presentation.components.RestaurantItem
+import com.foodapp.foodapp.features.restaurant.presentation.restaurantdetails.RestaurantDetailsScreenViewModel
 import com.foodapp.foodapp.navigation.RestaurantDetail
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun Home(
+fun SharedTransitionScope.Home(
     navHostController: NavHostController,
     viewModel: CategoryViewModel = hiltViewModel(),
-    restaurantViewModel: RestaurantViewModel = hiltViewModel()
+    restaurantViewModel: RestaurantDetailsScreenViewModel = hiltViewModel(),
+    animatedContentScope: SharedTransitionScope
+
 ) {
     Scaffold { innerPadding ->
         Box(
@@ -97,6 +104,7 @@ fun Home(
                         itemsIndexed(items = restaurantViewModel.restaurants) { _, item ->
 
                             RestaurantItem(
+                                animatedContentScope=animatedContentScope,
                                 item = item,
                                 onItemClick = {
                                     navHostController

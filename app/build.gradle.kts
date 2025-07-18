@@ -92,5 +92,7 @@ dependencies {
     // icons dependencies
     implementation("androidx.compose.material:material-icons-core:1.6.0") // Core icons
     implementation("androidx.compose.material:material-icons-extended:1.6.0")
+   // animation
+    implementation("androidx.compose.animation:animation:1.8.3")
 
 }
